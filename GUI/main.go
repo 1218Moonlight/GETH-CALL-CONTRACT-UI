@@ -24,7 +24,7 @@ func newWindow() window {
 	}
 }
 
-func main() {
+func Main() {
 	ui.Main(gui)
 }
 

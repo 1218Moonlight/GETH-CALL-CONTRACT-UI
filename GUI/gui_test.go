@@ -5,5 +5,5 @@ import (
 )
 
 func TestGui(t *testing.T) {
-	main()
+	Main()
 }
