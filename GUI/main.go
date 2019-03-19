@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-type window struct {
+type Window struct {
 	main       *ui.Window
 	title      string
 	width      int
@@ -14,8 +14,8 @@ type window struct {
 	hasMenubar bool
 }
 
-func newWindow() window {
-	return window{
+func NewWindow() Window {
+	return Window{
 		main:       nil,
 		title:      "GETH-CALL-CONTRACT-UI",
 		width:      600,
@@ -24,12 +24,12 @@ func newWindow() window {
 	}
 }
 
-func Main() {
+func Main(gui func()) {
 	ui.Main(gui)
 }
 
-func gui(){
-	win := newWindow()
+func Gui() {
+	win := NewWindow()
 
 	win.main = ui.NewWindow(win.title, win.width, win.height, win.hasMenubar)
 
