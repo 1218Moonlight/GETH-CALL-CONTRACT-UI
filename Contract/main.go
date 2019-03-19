@@ -2,17 +2,24 @@ package Contract
 
 import (
 	abi "github.com/ethereum/go-ethereum/accounts/abi"
+	geth "github.com/ethereum/go-ethereum/ethclient"
+	common "github.com/ethereum/go-ethereum/common"
+	bind "github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"strings"
 )
 
-const (
-	balanceAbi = `[{"constant": true,"inputs": [{"name": "_owner","type": "address"}],"name": "balanceOf", "outputs": [{"name": "balance","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"}]`
-)
+func GetAbi(stringAbi string) (abi.ABI, error) {
+	return abi.JSON(strings.NewReader(stringAbi))
+}
 
-func GetBalanceAbi() (abi.ABI, error) {
-	balanceOfAbi, err := abi.JSON(strings.NewReader(balanceAbi))
-	if err != nil {
-		return abi.ABI{}, err
-	}
-	return balanceOfAbi, nil
+func Dial(url string) (*geth.Client, error) { // "http://[ip]:[port]"
+	return geth.Dial(url)
+}
+
+func NewBoundContract(address common.Address, abi abi.ABI, caller bind.ContractCaller)(*bind.BoundContract){
+	return &bind.BoundContract{address, abi, caller, nil, nil}
+}
+
+func HexToAddress(s string)common.Address{
+	return common.HexToAddress(s)
 }
