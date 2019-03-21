@@ -2,16 +2,15 @@ package Contract
 
 import (
 	"testing"
-	"math/big"
 )
 
 const (
-	ca = "0x1d4c85d521ca26177772639ee00609eb573f043c"
+	ca  = "0x1d4c85d521ca26177772639ee00609eb573f043c"
 	eoa = "0x6f090f6cb125f77396d4b8f52fdabf7d5c1b53d4"
 )
 
 func TestBalanceOf(t *testing.T) {
-	abi, err := GetBalanceOfAbi()
+	balance, abi, err := GetBalanceOfAbi()
 	if err != nil {
 		t.Error(err)
 		return
@@ -25,8 +24,6 @@ func TestBalanceOf(t *testing.T) {
 	defer client.Close()
 
 	ca := NewBoundContract(HexToAddress(ca), abi, client)
-
-	balance := new(*big.Int)
 	err = ca.Call(nil, balance, "balanceOf", HexToAddress(eoa))
 	if err != nil {
 		t.Error(err)
@@ -35,8 +32,8 @@ func TestBalanceOf(t *testing.T) {
 
 }
 
-func TestSymbol(t *testing.T){
-	abi, err := GetSymbolAbi()
+func TestSymbol(t *testing.T) {
+	symbol, abi, err := GetSymbolAbi()
 	if err != nil {
 		t.Error(err)
 		return
@@ -51,7 +48,6 @@ func TestSymbol(t *testing.T){
 
 	ca := NewBoundContract(HexToAddress(ca), abi, client)
 
-	symbol := new(string)
 	err = ca.Call(nil, symbol, "symbol")
 	if err != nil {
 		t.Error(err)
