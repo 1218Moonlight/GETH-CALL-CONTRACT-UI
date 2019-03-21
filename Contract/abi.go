@@ -3,9 +3,12 @@ package Contract
 import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"strings"
+	"math/big"
 )
 
-type abiABI = abi.ABI
+type (
+	abiABI = abi.ABI
+)
 
 const (
 	balanceAbi  = `[{"constant":true,"inputs":[{"name": "_owner","type": "address"}],"name": "balanceOf", "outputs": [{"name": "balance","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"}]`
@@ -20,26 +23,32 @@ func GetAbi(stringAbi string) (abiABI, error) {
 	return abi.JSON(strings.NewReader(stringAbi))
 }
 
-func GetBalanceOfAbi() (abiABI, error) {
-	return GetAbi(balanceAbi)
+func GetBalanceOfAbi() (*big.Int, abiABI, error) {
+	bAbi, err := GetAbi(balanceAbi)
+	return new(big.Int), bAbi, err
 }
 
-func GetSymbolAbi() (abiABI, error) {
-	return GetAbi(symbolAbi)
+func GetSymbolAbi() (*string, abiABI, error) {
+	sAbi, err := GetAbi(symbolAbi)
+	return new(string), sAbi, err
 }
 
-func GetNameAbi() (abiABI, error) {
-	return GetAbi(nameAbi)
+func GetNameAbi() (*string, abiABI, error) {
+	nAbi, err := GetAbi(nameAbi)
+	return new(string), nAbi, err
 }
 
-func GetTotalSupplyAbi() (abiABI, error) {
-	return GetAbi(totalSupply)
+func GetTotalSupplyAbi() (*big.Int, abiABI, error) {
+	tAbi, err := GetAbi(totalSupply)
+	return new(big.Int), tAbi, err
 }
 
-func GetDecimalsAbi() (abiABI, error) {
-	return GetAbi(decimals)
+func GetDecimalsAbi() (*big.Int, abiABI, error) {
+	dAbi, err := GetAbi(decimals)
+	return new(big.Int), dAbi, err
 }
 
-func GetAllowance() (abiABI, error) {
-	return GetAbi(allowance)
+func GetAllowance() (*big.Int, abiABI, error) {
+	aAbi, err := GetAbi(allowance)
+	return new(big.Int), aAbi, err
 }
