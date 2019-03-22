@@ -1,25 +1,18 @@
 package GUI
 
-import (
-	"github.com/andlabs/ui"
-	_ "github.com/andlabs/ui/winmanifest"
-	"log"
-)
+import "github.com/andlabs/ui"
 
 func windowUI() {
 	win := newWindow()
+	win.onClosingAndQuit()
 
-	win.main.OnClosing(func(window *ui.Window) bool {
-		ui.Quit()
-		log.Println("OnClosing")
-		return true
-	})
+	topVbox := ui.NewVerticalBox()
+	topVbox.SetPadded(true)
 
-	ui.OnShouldQuit(func() bool {
-		win.main.Destroy()
-		log.Println("OnShouldQuit")
-		return true
-	})
+	ipBtn := ui.NewButton("testBtn")
+	topVbox.Append(ipBtn, true)
 
-	win.main.Show()
+	win.setChild(topVbox)
+
+	win.show()
 }
