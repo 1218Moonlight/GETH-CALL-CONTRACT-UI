@@ -5,9 +5,39 @@ import (
 )
 
 const (
-	ca  = "0x1d4c85d521ca26177772639ee00609eb573f043c"
+	ca  = "0x55d8Fe2df965043486662A21A16E37DA4E52981f"
 	eoa = "0x6f090f6cb125f77396d4b8f52fdabf7d5c1b53d4"
 )
+
+func TestErc20Abi(t *testing.T){
+	erc20struct, abi, err := GetErc20Abi()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	client, err := Dial("http://192.168.0.133:8545")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer client.Close()
+
+	ca := NewBoundContract(HexToAddress(ca), abi, client)
+	err = ca.Call(nil, erc20struct.balanceOf, "balanceOf", HexToAddress(eoa))
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	err = ca.Call(nil, erc20struct.symbol, "symbol")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+
+}
 
 func TestBalanceOf(t *testing.T) {
 	balance, abi, err := GetBalanceOfAbi()
