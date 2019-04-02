@@ -42,9 +42,41 @@ func TestErc20Abi(t *testing.T){
 		return
 	}
 
+	err = ca.Call(nil, erc20struct.Decimals, "decimals")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
+	err = ca.Call(nil, erc20struct.TotalSupply, "totalSupply")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }
 
+func TestDecimals(t *testing.T) {
+	decimals, abi, err := GetDecimalsAbi()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	client, err := Dial("http://192.168.0.133:8545")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer client.Close()
+
+	ca := NewBoundContract(HexToAddress(ca), abi, client)
+
+	err = ca.Call(nil, decimals, "decimals")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+}
 func TestName(t *testing.T) {
 	name, abi, err := GetNameAbi()
 	if err != nil {

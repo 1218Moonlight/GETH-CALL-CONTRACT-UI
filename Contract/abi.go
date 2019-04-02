@@ -32,7 +32,7 @@ type Erc20Abis struct {
 	Symbol      *string
 	Name        *string
 	TotalSupply **big.Int
-	Decimals    **big.Int
+	Decimals    *uint8
 	Allowance   **big.Int
 }
 
@@ -43,7 +43,7 @@ func GetAbi(stringAbi string) (abiABI, error) {
 func GetErc20Abi() (Erc20Abis, abiABI, error) {
 	eAbi, err := GetAbi(erc20Abi)
 	return Erc20Abis{BalanceOf: new(*big.Int), Symbol: new(string), Name: new(string), TotalSupply: new(*big.Int),
-		Decimals: new(*big.Int), Allowance: new(*big.Int)}, eAbi, err
+		Decimals: new(uint8), Allowance: new(*big.Int)}, eAbi, err
 }
 
 func GetBalanceOfAbi() (**big.Int, abiABI, error) {
@@ -66,9 +66,9 @@ func GetTotalSupplyAbi() (**big.Int, abiABI, error) {
 	return new(*big.Int), tAbi, err
 }
 
-func GetDecimalsAbi() (**big.Int, abiABI, error) {
+func GetDecimalsAbi() (*uint8, abiABI, error) {
 	dAbi, err := GetAbi(decimals)
-	return new(*big.Int), dAbi, err
+	return new(uint8), dAbi, err
 }
 
 func GetAllowanceAbi() (**big.Int, abiABI, error) {
