@@ -36,7 +36,36 @@ func TestErc20Abi(t *testing.T){
 		return
 	}
 
+	err = ca.Call(nil, &erc20struct.Name, "name")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
+
+}
+
+func TestName(t *testing.T) {
+	name, abi, err := GetNameAbi()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	client, err := Dial("http://192.168.0.133:8545")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer client.Close()
+
+	ca := NewBoundContract(HexToAddress(ca), abi, client)
+
+	err = ca.Call(nil, name, "name")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }
 
 func TestBalanceOf(t *testing.T) {
