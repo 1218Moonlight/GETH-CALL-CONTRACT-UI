@@ -21,8 +21,8 @@ const (
 )
 
 type Erc20Abis struct {
-	balanceOf **big.Int
-	symbol    *string
+	BalanceOf **big.Int
+	Symbol    *string
 }
 
 func GetAbi(stringAbi string) (abiABI, error) {
@@ -31,7 +31,7 @@ func GetAbi(stringAbi string) (abiABI, error) {
 
 func GetErc20Abi() (Erc20Abis, abiABI, error) {
 	eAbi, err := GetAbi(erc20Abi)
-	return Erc20Abis{balanceOf: new(*big.Int), symbol: new(string)}, eAbi, err
+	return Erc20Abis{BalanceOf: new(*big.Int), Symbol: new(string)}, eAbi, err
 }
 
 func GetBalanceOfAbi() (**big.Int, abiABI, error) {
