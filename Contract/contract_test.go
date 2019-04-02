@@ -24,13 +24,13 @@ func TestErc20Abi(t *testing.T){
 	defer client.Close()
 
 	ca := NewBoundContract(HexToAddress(ca), abi, client)
-	err = ca.Call(nil, erc20struct.balanceOf, "balanceOf", HexToAddress(eoa))
+	err = ca.Call(nil, erc20struct.BalanceOf, "balanceOf", HexToAddress(eoa))
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
-	err = ca.Call(nil, erc20struct.symbol, "symbol")
+	err = ca.Call(nil, erc20struct.Symbol, "symbol")
 	if err != nil {
 		t.Error(err)
 		return
