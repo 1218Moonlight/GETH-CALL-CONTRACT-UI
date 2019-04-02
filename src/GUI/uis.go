@@ -72,7 +72,7 @@ func (b uiBox) erc20Info() {
 	requestBtn := ui.NewButton("request")
 	b.mainVerticalBox.Append(requestBtn, false)
 
-	infoEntry := ui.NewEntry()
+	infoEntry := ui.NewMultilineEntry()
 	infoEntry.SetReadOnly(true)
 
 	requestBtn.OnClicked(func(button *ui.Button) {
@@ -84,18 +84,17 @@ func (b uiBox) erc20Info() {
 			return
 		}
 
-		symbol, err := symbol(b.caEnter.Text())
+		erc20struct, err := erc20All(b.caEnter.Text(), b.eoaEnter.Text())
 		if err != nil {
 			fmt.Println(err)
 		}
 
-		balance, err := balanceOf(b.caEnter.Text(), b.eoaEnter.Text())
-		if err != nil {
-			fmt.Println(err)
-		}
+		infoEntry.Append(fmt.Sprintf("%s : %s\n", "[name]", *erc20struct.Name))
+		infoEntry.Append(fmt.Sprintf("%s : %s\n", "[symbol]", *erc20struct.Symbol))
+		infoEntry.Append(fmt.Sprintf("%s : %s\n", "[BalanceOf]", *erc20struct.BalanceOf))
+		infoEntry.Append(fmt.Sprintf("%s : %d\n", "[Decimals]", *erc20struct.Decimals))
+		infoEntry.Append(fmt.Sprintf("%s : %s\n", "[TotalSupply]", *erc20struct.TotalSupply))
 
-		infoEntry.SetText(fmt.Sprintf("[ symbol ] : %s, [ balanceOf ] : %v", *symbol, balance))
+		b.mainVerticalBox.Append(infoEntry, true)
 	})
-
-	b.mainVerticalBox.Append(infoEntry, true)
 }
