@@ -23,9 +23,9 @@ const (
 type Erc20Abis struct {
 	BalanceOf   **big.Int
 	Symbol      *string
-	name        *string
-	totalSupply **big.Int
-	decimals    **big.Int
+	Name        *string
+	TotalSupply **big.Int
+	Decimals    **big.Int
 	Allowance   **big.Int
 }
 
